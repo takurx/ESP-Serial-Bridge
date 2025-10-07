@@ -78,3 +78,37 @@ PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\t
 100570.91 bps
 100694.02 bps
 ```
+
+## test3
+- Host -> Client, around 115200 bps
+- Client -> Host, around 13000 bps, 1/10
+
+### test3, detail
+- Host -> Client, around 115200 bps
+```
+PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\test1_receive_random.py
+825.76 bps
+101699.98 bps
+101086.60 bps
+100784.28 bps
+101176.80 bps
+101184.19 bps
+101181.45 bps
+100977.22 bps
+101200.93 bps
+101220.15 bps
+```
+- Client -> Host, around 13000 bps, 1/10
+```
+PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\test1_receive_random.py
+8643.42 bps
+13705.61 bps
+7663.88 bps
+13088.96 bps
+12960.40 bps
+13315.06 bps
+14086.15 bps
+13497.89 bps
+14034.07 bps
+13409.55 bps
+```

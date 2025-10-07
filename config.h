@@ -42,8 +42,8 @@
 #define NETMASK   IPAddress(255, 255, 255, 0)  // netmask for MODE_AP
 
 #ifdef ESP32
-//#define NUM_COM   3    // 3 available on ESP32
-#define NUM_COM   1    // 3 available on ESP32
+#define NUM_COM   3    // 3 available on ESP32
+//#define NUM_COM   1    // 3 available on ESP32
 #elif defined(ESP8266)
 #define NUM_COM   2    // we only use 2 on ESP8266
 #endif
