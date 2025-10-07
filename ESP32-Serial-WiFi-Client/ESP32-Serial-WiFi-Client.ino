@@ -152,7 +152,8 @@ void loop() {
 #ifdef PROTOCOL_TCP
     if (num > 0) client.write(buf, num);
 #elif defined(PROTOCOL_UDP)
-    udp.broadcastTo(buf, num, HOST_PORT + 1);
+    //udp.broadcastTo(buf, num, HOST_PORT + 1);
+    udp.broadcastTo(buf, num, HOST_PORT);
 #endif
     num = 0;
 }
