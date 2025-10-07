@@ -56,7 +56,8 @@ BluetoothSerial SerialBT;
 
 HardwareSerial Serial_one(1);
 HardwareSerial Serial_two(2);
-HardwareSerial* COM[NUM_COM] = {&Serial, &Serial_one, &Serial_two};
+//HardwareSerial* COM[NUM_COM] = {&Serial, &Serial_one, &Serial_two};
+HardwareSerial* COM[NUM_COM] = {&Serial};
 #elif defined(ESP8266)
 SoftwareSerial Serial_zero(SERIAL0_RXPIN, SERIAL0_TXPIN);
 SoftwareSerial Serial_one(SERIAL1_RXPIN, SERIAL1_TXPIN);
@@ -66,11 +67,12 @@ SoftwareSerial* COM[NUM_COM] = {&Serial_zero, &Serial_one};
 #ifdef PROTOCOL_TCP
 #include <WiFiClient.h>
 WiFiServer server_0(SERIAL0_TCP_PORT);
-WiFiServer server_1(SERIAL1_TCP_PORT);
+//WiFiServer server_1(SERIAL1_TCP_PORT);
 
 #ifdef ESP32
-WiFiServer server_2(SERIAL2_TCP_PORT);
-WiFiServer* server[NUM_COM] = {&server_0, &server_1, &server_2};
+//WiFiServer server_2(SERIAL2_TCP_PORT);
+//WiFiServer* server[NUM_COM] = {&server_0, &server_1, &server_2};
+WiFiServer* server[NUM_COM] = {&server_0};
 #elif defined(ESP8266)
 WiFiServer* server[NUM_COM] = {&server_0, &server_1};
 #endif
@@ -81,7 +83,8 @@ uint8_t buf1[NUM_COM][BUFFERSIZE];
 uint8_t buf2[NUM_COM][BUFFERSIZE];
 
 #ifdef ESP32
-uint16_t i1[NUM_COM] = {0, 0, 0};
+//uint16_t i1[NUM_COM] = {0, 0, 0};
+uint16_t i1[NUM_COM] = {0};
 #elif defined(ESP8266)
 uint16_t i1[NUM_COM] = {0, 0};
 #endif
@@ -119,8 +122,8 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
 
 #ifdef ESP32
         COM[0]->begin(UART_BAUD0, SERIAL_PARAM0, SERIAL0_RXPIN, SERIAL0_TXPIN);
-        COM[1]->begin(UART_BAUD1, SERIAL_PARAM1, SERIAL1_RXPIN, SERIAL1_TXPIN);
-        COM[2]->begin(UART_BAUD2, SERIAL_PARAM2, SERIAL2_RXPIN, SERIAL2_TXPIN);
+        //COM[1]->begin(UART_BAUD1, SERIAL_PARAM1, SERIAL1_RXPIN, SERIAL1_TXPIN);
+        //COM[2]->begin(UART_BAUD2, SERIAL_PARAM2, SERIAL2_RXPIN, SERIAL2_TXPIN);
 #elif defined(ESP8266)
     COM[0]->begin(UART_BAUD0);
     COM[1]->begin(UART_BAUD1);
