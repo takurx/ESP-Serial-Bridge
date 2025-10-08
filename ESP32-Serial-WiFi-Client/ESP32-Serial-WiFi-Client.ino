@@ -13,6 +13,7 @@
 #include <ESPmDNS.h>
 #include <WiFi.h>
 #include <esp_wifi.h>
+#include "esp_system.h"
 
 #include "client_config.h"
 
@@ -28,6 +29,14 @@
 
 uint8_t buf[BUFFERSIZE];
 uint16_t num = 0;
+
+const int wdtTimeout = 30000;  // reboot after 30 seconds of no clients
+hw_timer_t *timer = NULL;
+
+void ARDUINO_ISR_ATTR resetModule() {
+  debug.println("Rebooting...");
+  esp_restart();
+}
 
 #ifdef PROTOCOL_TCP
 WiFiClient client;
@@ -68,6 +77,11 @@ void setup() {
     debug.print("\n\nWiFi serial bridge client ");
     debug.println(VERSION);
 
+    timer = timerBegin(1000000);                       //timer 1MHz
+    timerAttachInterrupt(timer, &resetModule);         //attach callback
+    timerAlarm(timer, wdtTimeout * 1000, false, 0);    //set time in us
+    debug.println("Watch dog timer Setup done");
+
     debug.println("Open ESP Station Mode");
     WiFi.mode(WIFI_STA);
     WiFi.onEvent(WiFiStationDisconnected, ARDUINO_EVENT_WIFI_STA_DISCONNECTED);
@@ -79,6 +93,7 @@ void setup() {
         delay(500);
         debug.print(".");
     }
+    timerWrite(timer, 0); //reset timer (feed watchdog)
     debug.println("connected");
     debug.print("IP address: ");
     debug.println(WiFi.localIP());
@@ -131,6 +146,8 @@ void loop() {
 #ifdef OTA_HANDLER
     ArduinoOTA.handle();
 #endif
+    
+    timerWrite(timer, 0); //reset timer (feed watchdog)
 
 #ifdef PROTOCOL_TCP
     if (!client.connected()) connect_to_host();
