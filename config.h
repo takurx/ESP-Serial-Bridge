@@ -33,7 +33,7 @@
 
 #define MODE_AP               // MODE_STA or MODE_AP
 #define PROTOCOL_TCP           // uncomment to enable TCP server
-#define MAX_NMEA_CLIENTS 1     // max TCP clients
+#define MAX_NMEA_CLIENTS 4     // max TCP clients
 //#define PROTOCOL_UDP           // uncomment to enable UDP broadcast (ESP32 only)
 //#define BLUETOOTH 0          // uncomment to create a bluetooth serial bridge on the indicated serial port (ESP32 only)
 //#define BATTERY_SAVER        // uncomment to reduce wifi power
@@ -43,7 +43,6 @@
 
 #ifdef ESP32
 #define NUM_COM   3    // 3 available on ESP32
-//#define NUM_COM   1    // 3 available on ESP32
 #elif defined(ESP8266)
 #define NUM_COM   2    // we only use 2 on ESP8266
 #endif

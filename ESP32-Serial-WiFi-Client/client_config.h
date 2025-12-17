@@ -28,7 +28,7 @@
 #define CLIENT_BAUD 115200
 #define CLIENT_PARAM SERIAL_8N1
 #define CLIENT_TXPIN 1
-#define CLIENT_RXPIN 21
+#define CLIENT_RXPIN 3
 
 /**************************  DO NOT EDIT BELOW HERE **************************/
 // perhaps a clever way to include/exclude serial debug messages...

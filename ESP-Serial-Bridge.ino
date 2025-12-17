@@ -57,7 +57,6 @@ BluetoothSerial SerialBT;
 HardwareSerial Serial_one(1);
 HardwareSerial Serial_two(2);
 HardwareSerial* COM[NUM_COM] = {&Serial, &Serial_one, &Serial_two};
-//HardwareSerial* COM[NUM_COM] = {&Serial};
 #elif defined(ESP8266)
 SoftwareSerial Serial_zero(SERIAL0_RXPIN, SERIAL0_TXPIN);
 SoftwareSerial Serial_one(SERIAL1_RXPIN, SERIAL1_TXPIN);
@@ -72,7 +71,6 @@ WiFiServer server_1(SERIAL1_TCP_PORT);
 #ifdef ESP32
 WiFiServer server_2(SERIAL2_TCP_PORT);
 WiFiServer* server[NUM_COM] = {&server_0, &server_1, &server_2};
-//WiFiServer* server[NUM_COM] = {&server_0};
 #elif defined(ESP8266)
 WiFiServer* server[NUM_COM] = {&server_0, &server_1};
 #endif
@@ -84,7 +82,6 @@ uint8_t buf2[NUM_COM][BUFFERSIZE];
 
 #ifdef ESP32
 uint16_t i1[NUM_COM] = {0, 0, 0};
-//uint16_t i1[NUM_COM] = {0};
 #elif defined(ESP8266)
 uint16_t i1[NUM_COM] = {0, 0};
 #endif
