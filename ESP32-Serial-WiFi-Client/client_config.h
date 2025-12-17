@@ -13,8 +13,8 @@
 
 #define OTA_HANDLER        // uncomment to enable OTA programming
 
-#define SSID   "ssid_esp_uart_bridge"      // SSID to join
-#define PASSWD "password_esp_uart_bridgeAAAA"  // wiFi password
+#define SSID   "ssid"      // SSID to join
+#define PASSWD "password"  // wiFi password
 
 #define BUFFERSIZE 1024
 
