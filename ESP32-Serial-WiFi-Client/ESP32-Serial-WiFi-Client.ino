@@ -42,18 +42,11 @@ void ARDUINO_ISR_ATTR resetModule() {
 WiFiClient client;
 void connect_to_host() {
   debug.printf("Connecting to %s:%d...", HOST_IP.toString(), HOST_PORT);
-
-  //timer = timerBegin(1000000);                     //timer 1MHz
-  //timerAttachInterrupt(timer, &resetModule);       //attach callback
-  //timerAlarm(timer, wdtTimeout * 1000, false, 0);  //set time in us
-  //debug.println("Watch dog timer Setup done");
-
   debug.println("while, connect_to_host");
   while (!client.connect(HOST_IP, HOST_PORT)) {
     delay(500);
     debug.print('.');
   }
-  //timerWrite(timer, 0);  //reset timer (feed watchdog)
   debug.println("connected, connect_to_host\n");
   delay(1000);
 }
@@ -68,12 +61,6 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
   debug.println(info.wifi_sta_disconnected.reason);
   debug.println("Trying to reconnect..");
   WiFi.begin(SSID, PASSWD);
-
-  //timer = timerBegin(1000000);                     //timer 1MHz
-  //timerAttachInterrupt(timer, &resetModule);       //attach callback
-  //timerAlarm(timer, wdtTimeout * 1000, false, 0);  //set time in us
-  //debug.println("Watch dog timer Setup done");
-
   debug.println("while, WiFiStationDisconnected");
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -82,7 +69,6 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
         break;
     }
   }
-  //timerWrite(timer, 0);  //reset timer (feed watchdog)
   debug.println("connected, WiFiStationDisconnected");
   debug.print("IP address: ");
   debug.println(WiFi.localIP());
