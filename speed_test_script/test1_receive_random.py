@@ -1,7 +1,9 @@
 import serial, time
 
-ser = serial.Serial("COM18", 115200)
-# ser = serial.Serial("COM17", 115200)
+# com8, client
+# com7, host
+ser = serial.Serial("COM8", 115200)
+# ser = serial.Serial("COM7", 115200)
 
 count = 0
 start = time.time()
