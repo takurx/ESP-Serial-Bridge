@@ -1,10 +1,11 @@
 # 251218_speed_test_result-1.md
+Add external Wi-Fi router and Static IP address
 
 ## result
 - Host -> Client: around 10000 ~ 50000 bps, たまに3700bps
 - Client -> Host: around 70000 ~ 100000 bps, たまに3700bps
 
-### test1
+### test1-1
 - Client -> Host: around 70000 ~ 100000 bps, たまに3700bps
 ```
 PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\test1_receive_random.py
@@ -28,7 +29,7 @@ PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\t
 100396.24 bps
 ```
 
-### test2
+### test1-2
 - Host -> Client: around 10000 ~ 50000 bps, たまに3700bps
 ```
 PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\test1_receive_random.py

@@ -145,9 +145,9 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
 #ifdef MODE_STA
         debug.println("Open ESP Station Mode");
         WiFi.mode(WIFI_STA);
-        if(!WiFi.config(STATIC_IP, GATEWAY, NETMASK, PRIMARYDNS, SECONDARYDNS)){   // configure static ip address
-            debug.println("Failed to configure!");
-        }
+        // if(!WiFi.config(STATIC_IP, GATEWAY, NETMASK, PRIMARYDNS, SECONDARYDNS)){   // configure static ip address
+        //     debug.println("Failed to configure!");
+        // }
 #ifdef ESP32
         WiFi.onEvent(WiFiStationDisconnected,
                      ARDUINO_EVENT_WIFI_STA_DISCONNECTED);

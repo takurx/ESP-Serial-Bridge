@@ -23,7 +23,8 @@
 #define PROTOCOL_TCP                       // PROTOCOL_TCP or PROTOCOL_UDP
 //#define PROTOCOL_UDP                       // PROTOCOL_TCP or PROTOCOL_UDP
 //#define HOST_IP IPAddress(192, 168, 4, 1)  // only used for PROTOCOL_TCP
-#define HOST_IP IPAddress(192, 168, 0, 10)  // only used for PROTOCOL_TCP
+//#define HOST_IP IPAddress(192, 168, 0, 10)  // only used for PROTOCOL_TCP
+#define HOST_IP IPAddress(192, 168, 0, 213)  // only used for PROTOCOL_TCP
 //#define HOST_PORT 14550                    // UDP port
 #define HOST_PORT 8880                    // TCP port
 #define CLIENT_BAUD 115200
