@@ -31,15 +31,20 @@
 #define VERSION "2.0-ESP8266"
 #endif
 
-#define MODE_AP               // MODE_STA or MODE_AP
+#define MODE_STA               // MODE_STA or MODE_AP
 #define PROTOCOL_TCP           // uncomment to enable TCP server
 #define MAX_NMEA_CLIENTS 1     // max TCP clients
 //#define PROTOCOL_UDP           // uncomment to enable UDP broadcast (ESP32 only)
 //#define BLUETOOTH 0          // uncomment to create a bluetooth serial bridge on the indicated serial port (ESP32 only)
 //#define BATTERY_SAVER        // uncomment to reduce wifi power
 
-#define STATIC_IP IPAddress(192, 168,   4, 1)  // static IP for MODE_AP
+//#define STATIC_IP IPAddress(192, 168,   4, 1)  // static IP for MODE_AP
+#define STATIC_IP IPAddress(192, 168,   0, 10)  // static IP
 #define NETMASK   IPAddress(255, 255, 255, 0)  // netmask for MODE_AP
+#define GATEWAY IPAddress(192, 168,   0, 254)  // static IP
+#define PRIMARYDNS IPAddress(8, 8, 8, 8)  // static IP
+#define SECONDARYDNS IPAddress(8, 8, 4, 4)  // static IP
+
 
 #ifdef ESP32
 #define NUM_COM   3    // 3 available on ESP32
