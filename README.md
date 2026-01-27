@@ -1,3 +1,29 @@
+# ESP32-Serial-Bridge
+
+# Takurx's Notes
+
+## Recent Updates
+
+### English
+- **Watch Dog Timer Bug Fix (Dec 2025)**: Fixed a critical bug where the system would enter an infinite loop when the Host side crashed and the Watch Dog Timer failed to activate. Now properly handles three scenarios:
+  1. Client-side crash (Client Reset) → Recovers with input from Host side
+  2. Host-side crash with quick recovery (Host Reset) → System continues normally
+  3. Host-side crash without recovery (Host OFF) → Client automatically resets every 30 seconds via Watch Dog Timer
+- **Speed Test Results in AP Mode (Dec 2025)**: Documented communication speed test results:
+  - Host → Client: approximately 13,000 bps (occasionally drops to 7,000 bps)
+  - Client → Host: approximately 100,000 bps (stable)
+- **3D Printable Case (Dec 2025)**: Added STL files for 3D printable enclosure (box and cover, including v2 versions)
+
+### 日本語
+- **Watch Dog Timer バグ修正 (2025年12月)**: Host側が落ちた時に無限ループに陥り、Watch Dog Timerが効かなかった重大なバグを修正。以下の3つのケースに対応:
+  1. Client側が落ちた場合（ClientのReset）→ Host側からの入力で回復
+  2. Host側が落ちてすぐ回復した場合（HostのReset）→ 正常動作
+  3. Host側が落ちて回復しない場合（HostのOFF）→ 30秒ごとにWatch Dog TimerでClientを自動Reset
+- **APモードでの速度テスト結果 (2025年12月)**: 通信速度のテスト結果を文書化:
+  - Host → Client: 約13,000 bps（時々7,000 bpsに低下）
+  - Client → Host: 約100,000 bps（安定）
+- **3Dプリント用ケース (2025年12月)**: 3Dプリント可能なケースのSTLファイルを追加（ボックスとカバー、v2バージョンを含む）
+
 # Yuri's Notes
 
 This fork is compatible with both the ESP32 and ESP8266.
