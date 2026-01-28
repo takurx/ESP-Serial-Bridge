@@ -1,4 +1,4 @@
-26837336541803098
+26839106183597164
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -74985,6 +74985,13 @@ ESP32-S3
 44
 PCM_Espressif
 ESP32-S3-DevKitC_3rd_party_57x28
+ESP32-S3 general-purpose development board, based on ESP32-S3-WROOM-1 or ESP32-S3-WROOM-1U,It has all the ESP32-S3 pins exposed and is easy to connect and use.
+ESP32-S3
+0
+44
+44
+PCM_Espressif
+ESP32-S3-DevKitC_3rd_party_5715x2794
 ESP32-S3 general-purpose development board, based on ESP32-S3-WROOM-1 or ESP32-S3-WROOM-1U,It has all the ESP32-S3 pins exposed and is easy to connect and use.
 ESP32-S3
 0

@@ -14753,7 +14753,7 @@
 			)
 			(justify left)
 		)
-		(uuid "7804ffdc-561e-4683-90ac-e44330ff4812")
+		(uuid "7804ffdc-561e-4683-90ac-e44330ff4813")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 91.22 90.17 0)
 			(effects
@@ -14775,7 +14775,7 @@
 			)
 			(justify left)
 		)
-		(uuid "7804ffdc-561e-4683-90ac-e44330ff4812")
+		(uuid "7804ffdc-561e-4683-90ac-e44330ff4814")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 92.4295 105.41 0)
 			(effects
@@ -14797,7 +14797,7 @@
 			)
 			(justify left)
 		)
-		(uuid "7804ffdc-561e-4683-90ac-e44330ff4812")
+		(uuid "7804ffdc-561e-4683-90ac-e44330ff4815")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 91.22 92.71 0)
 			(effects
@@ -14819,7 +14819,7 @@
 			)
 			(justify left)
 		)
-		(uuid "7804ffdc-561e-4683-90ac-e44330ff4812")
+		(uuid "7804ffdc-561e-4683-90ac-e44330ff4816")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 92.4295 95.25 0)
 			(effects
@@ -14841,7 +14841,7 @@
 			)
 			(justify left)
 		)
-		(uuid "7804ffdc-561e-4683-90ac-e44330ff4812")
+		(uuid "7804ffdc-561e-4683-90ac-e44330ff4817")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 92.4295 100.33 0)
 			(effects
@@ -14863,7 +14863,7 @@
 			)
 			(justify left)
 		)
-		(uuid "7804ffdc-561e-4683-90ac-e44330ff4812")
+		(uuid "7804ffdc-561e-4683-90ac-e44330ff4818")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 92.4295 102.87 0)
 			(effects
@@ -14885,7 +14885,7 @@
 			)
 			(justify left)
 		)
-		(uuid "7804ffdc-561e-4683-90ac-e44330ff4812")
+		(uuid "7804ffdc-561e-4683-90ac-e44330ff4819")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 91.22 97.79 0)
 			(effects
@@ -14907,7 +14907,7 @@
 			)
 			(justify left)
 		)
-		(uuid "7804ffdc-561e-4683-90ac-e44330ff4812")
+		(uuid "7804ffdc-561e-4683-90ac-e44330ff481a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 92.4295 107.95 0)
 			(effects
@@ -14929,7 +14929,7 @@
 			)
 			(justify left)
 		)
-		(uuid "7804ffdc-561e-4683-90ac-e44330ff4812")
+		(uuid "7804ffdc-561e-4683-90ac-e44330ff481b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 91.22 72.39 0)
 			(effects
@@ -14951,7 +14951,7 @@
 			)
 			(justify left)
 		)
-		(uuid "7804ffdc-561e-4683-90ac-e44330ff4812")
+		(uuid "7804ffdc-561e-4683-90ac-e44330ff481c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 91.22 69.85 0)
 			(effects
@@ -14973,7 +14973,7 @@
 			)
 			(justify left)
 		)
-		(uuid "7804ffdc-561e-4683-90ac-e44330ff4812")
+		(uuid "7804ffdc-561e-4683-90ac-e44330ff481d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 88.9823 67.31 0)
 			(effects
@@ -14995,7 +14995,7 @@
 			)
 			(justify left)
 		)
-		(uuid "7804ffdc-561e-4683-90ac-e44330ff4812")
+		(uuid "7804ffdc-561e-4683-90ac-e44330ff481e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 91.22 74.93 0)
 			(effects
@@ -15457,7 +15457,7 @@
 			)
 			(justify right)
 		)
-		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b389")
+		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b38a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 174.2705 99.06 0)
 			(effects
@@ -15479,7 +15479,7 @@
 			)
 			(justify right)
 		)
-		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b389")
+		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b38b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 175.48 93.98 0)
 			(effects
@@ -15501,7 +15501,7 @@
 			)
 			(justify right)
 		)
-		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b389")
+		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b38c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 174.2705 96.52 0)
 			(effects
@@ -15523,7 +15523,7 @@
 			)
 			(justify right)
 		)
-		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b389")
+		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b38d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 174.2705 104.14 0)
 			(effects
@@ -15545,7 +15545,7 @@
 			)
 			(justify right)
 		)
-		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b389")
+		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b38e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 174.2705 66.04 0)
 			(effects
@@ -15567,7 +15567,7 @@
 			)
 			(justify right)
 		)
-		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b389")
+		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b38f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 174.2705 76.2 0)
 			(effects
@@ -15589,7 +15589,7 @@
 			)
 			(justify right)
 		)
-		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b389")
+		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b390")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 174.2705 73.66 0)
 			(effects
@@ -15611,7 +15611,7 @@
 			)
 			(justify right)
 		)
-		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b389")
+		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b391")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 174.2705 78.74 0)
 			(effects
@@ -15633,7 +15633,7 @@
 			)
 			(justify right)
 		)
-		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b389")
+		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b392")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 175.48 71.12 0)
 			(effects
@@ -15655,7 +15655,7 @@
 			)
 			(justify right)
 		)
-		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b389")
+		(uuid "d576f0ff-1c4b-48c7-8c71-4fc6bd59b393")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 174.2705 81.28 0)
 			(effects
@@ -16140,7 +16140,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "ESP32-S3-DevKitC-3rd-party-57x28"
+		(property "Value" "ESP32-S3-DevKitC-3rd-party-5715x2794"
 			(at 135.4933 139.7 0)
 			(effects
 				(font
@@ -16149,7 +16149,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "PCM_Espressif:ESP32-S3-DevKitC_3rd_party_57x28"
+		(property "Footprint" "PCM_Espressif:ESP32-S3-DevKitC_3rd_party_5715x2794"
 			(at 133.35 148.59 0)
 			(effects
 				(font
