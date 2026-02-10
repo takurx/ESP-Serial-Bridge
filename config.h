@@ -19,7 +19,7 @@
 
 #define OTA_HANDLER          // uncomment to enable OTA programming
 
-#define SSID     "ssid_esp_uart_bridge"      // SSID to join (or broadcast)
+#define SSID     "ssid_esp_uart_bridge3x3"      // SSID to join (or broadcast)
 #define PASSWD   "password_esp_uart_bridgeAAAA"  // wiFi password
 #define HOSTNAME "esp32"     // hostname for STA mode mDNS
 
@@ -58,8 +58,16 @@
 /*************************  COM Port 1 *******************************/
 #define UART_BAUD1 115200           // Baudrate UART1
 #define SERIAL_PARAM1 SERIAL_8N1    // Data/Parity/Stop UART1 (use SWSERIAL_* for ESP8266)
-#define SERIAL1_TXPIN 17            // transmit Pin UART1
-#define SERIAL1_RXPIN 16            // receive Pin UART1
+// May work ESP32-DevKitC-32E ESP32-WROOM-32E 4MB
+// #define SERIAL1_TXPIN 17            // transmit Pin UART1
+// #define SERIAL1_RXPIN 16            // receive Pin UART1
+// COM1, Fail ESP32-DevKitC-VE ESP32-WROVER-E 8MB
+// ESP32-WROVER-E connected PSRAM and it use GPIO17, 16
+// Hardware Design - - — ESP-FAQ latest documentation
+// https://docs.espressif.com/projects/esp-faq/en/latest/hardware-related/hardware-design.html?utm_source=chatgpt.com#for-modules-housing-esp32-which-pins-cannot-be-set-by-users
+// So it is Non-Connect
+#define SERIAL1_TXPIN 25            // transmit Pin UART1
+#define SERIAL1_RXPIN 26            // receive Pin UART1
 #define SERIAL1_TCP_PORT 8881       // TCP Port UART1
 #define SERIAL1_UDP_PORT 14551      // UDP Port UART1         (ESP32 only)
 /*************************  COM Port 2 *******************************/
