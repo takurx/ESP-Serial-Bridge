@@ -13,70 +13,62 @@
 
 #ifdef ESP32
 #include <WiFi.h>
-#elif defined(ESP8266)
-#include <ESP8266WiFi.h>
 #endif
 
 #define OTA_HANDLER          // uncomment to enable OTA programming
 
 #define SSID     "ssid_esp_uart_bridge3x3"      // SSID to join (or broadcast)
 #define PASSWD   "password_esp_uart_bridgeAAAA"  // wiFi password
-#define HOSTNAME "esp32"     // hostname for STA mode mDNS
+#define HOSTNAME "ESP32-S3"     // hostname for STA mode mDNS
 
 #define BUFFERSIZE 1024
 
 #ifdef ESP32
-#define VERSION "2.0-ESP32"
-#elif defined(ESP8266)
-#define VERSION "2.0-ESP8266"
+#define VERSION "2.0-ESP32-S3"
 #endif
 
-#define MODE_AP               // MODE_STA or MODE_AP
+#define MODE_AP                // MODE_STA or MODE_AP
 #define PROTOCOL_TCP           // uncomment to enable TCP server
 #define MAX_NMEA_CLIENTS 1     // max TCP clients
-//#define PROTOCOL_UDP           // uncomment to enable UDP broadcast (ESP32 only)
-//#define BLUETOOTH 0          // uncomment to create a bluetooth serial bridge on the indicated serial port (ESP32 only)
+//#define PROTOCOL_UDP         // uncomment to enable UDP broadcast
+//#define BLUETOOTH 0          // uncomment to create a bluetooth serial bridge on the indicated serial port
 //#define BATTERY_SAVER        // uncomment to reduce wifi power
 
 #define STATIC_IP IPAddress(192, 168,   4, 1)  // static IP for MODE_AP
 #define NETMASK   IPAddress(255, 255, 255, 0)  // netmask for MODE_AP
 
 #ifdef ESP32
-#define NUM_COM   3    // 3 available on ESP32
-//#define NUM_COM   1    // 3 available on ESP32
-#elif defined(ESP8266)
-#define NUM_COM   2    // we only use 2 on ESP8266
+#define NUM_COM   3    // 3 available on ESP32-S3
+//#define NUM_COM   1    // 3 available on ESP32-S3
 #endif
 
 /**************************  COM Port 0 *******************************/
-#define UART_BAUD0 115200         // Baudrate UART0
-#define SERIAL_PARAM0 SERIAL_8N1  // Data/Parity/Stop UART0 (use SWSERIAL_* for ESP8266)
-#define SERIAL0_TXPIN 1           // transmit Pin UART0
-#define SERIAL0_RXPIN 21          // receive Pin UART0
-#define SERIAL0_TCP_PORT 8880     // TCP Port UART0
-#define SERIAL0_UDP_PORT 14550    // UDP Port UART0           (ESP32 only)
+#define UART_BAUD0 115200           // Baudrate UART0
+#define SERIAL_PARAM0 SERIAL_8N1    // Data/Parity/Stop UART0 (use SWSERIAL_* for ESP8266)
+#define SERIAL0_TXPIN 43            // transmit Pin UART0
+#define SERIAL0_RXPIN 1             // receive Pin UART0
+#define SERIAL0_CTSPIN 16           // CTS Pin UART0
+#define SERIAL0_RTSPIN 15           // RTS Pin UART0
+#define SERIAL0_TCP_PORT 8880       // TCP Port UART0
+#define SERIAL0_UDP_PORT 14550      // UDP Port UART0
 /*************************  COM Port 1 *******************************/
 #define UART_BAUD1 115200           // Baudrate UART1
 #define SERIAL_PARAM1 SERIAL_8N1    // Data/Parity/Stop UART1 (use SWSERIAL_* for ESP8266)
-// May work ESP32-DevKitC-32E ESP32-WROOM-32E 4MB
-// #define SERIAL1_TXPIN 17            // transmit Pin UART1
-// #define SERIAL1_RXPIN 16            // receive Pin UART1
-// COM1, Fail ESP32-DevKitC-VE ESP32-WROVER-E 8MB
-// ESP32-WROVER-E connected PSRAM and it use GPIO17, 16
-// Hardware Design - - — ESP-FAQ latest documentation
-// https://docs.espressif.com/projects/esp-faq/en/latest/hardware-related/hardware-design.html?utm_source=chatgpt.com#for-modules-housing-esp32-which-pins-cannot-be-set-by-users
-// So it is Non-Connect
-#define SERIAL1_TXPIN 25            // transmit Pin UART1
-#define SERIAL1_RXPIN 26            // receive Pin UART1
+#define SERIAL1_TXPIN 17            // transmit Pin UART1
+#define SERIAL1_RXPIN 18            // receive Pin UART1
+#define SERIAL1_CTSPIN 20           // CTS Pin UART1
+#define SERIAL1_RTSPIN 19           // RTS Pin UART1
 #define SERIAL1_TCP_PORT 8881       // TCP Port UART1
-#define SERIAL1_UDP_PORT 14551      // UDP Port UART1         (ESP32 only)
+#define SERIAL1_UDP_PORT 14551      // UDP Port UART1
 /*************************  COM Port 2 *******************************/
-#define UART_BAUD2 115200           // Baudrate UART2         (ESP32 only)
-#define SERIAL_PARAM2 SERIAL_8N1    // Data/Parity/Stop UART2 (ESP32 only)
-#define SERIAL2_TXPIN 4             // transmit Pin UART2     (ESP32 only)
-#define SERIAL2_RXPIN 15            // receive Pin UART2      (ESP32 only)
-#define SERIAL2_TCP_PORT 8882       // TCP Port UART2         (ESP32 only)
-#define SERIAL2_UDP_PORT 14552      // UDP Port UART2         (ESP32 only)
+#define UART_BAUD2 115200           // Baudrate UART2
+#define SERIAL_PARAM2 SERIAL_8N1    // Data/Parity/Stop UART2
+#define SERIAL2_TXPIN 37            // transmit Pin UART2
+#define SERIAL2_RXPIN 38            // receive Pin UART2
+#define SERIAL2_CTSPIN 36           // CTS Pin UART2
+#define SERIAL2_RTSPIN 35           // RTS Pin UART2
+#define SERIAL2_TCP_PORT 8882       // TCP Port UART2
+#define SERIAL2_UDP_PORT 14552      // UDP Port UART2
 
 /**************************  DO NOT EDIT BELOW HERE **************************/
 // perhaps a clever way to include/exclude serial debug messages...

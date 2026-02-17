@@ -1,5 +1,5 @@
 /*
-  ESP32-Serial-WiFi-Client (3x UART concurrent bridge)
+  pio-ESP32S3-Serial-WiFi-Client-Kerberos (3x UART concurrent bridge)
   - Makes 3 TCP client connections (one per UART) to ESP-Serial-Bridge server
   - Bridges UART0/UART1/UART2 <-> TCP sockets concurrently (non-blocking)
 
@@ -8,9 +8,9 @@
   Notes:
   - UART0 is usually used for USB programming/logging; using it for external RX/TX may affect uploads.
     The pin assignment below matches the repo README wiring suggestion:
-      COM0 Rx <-> GPIO21, COM0 Tx <-> GPIO01
-      COM1 Rx <-> GPIO26, COM1 Tx <-> GPIO25
-      COM2 Rx <-> GPIO15, COM2 Tx <-> GPIO04
+      COM0 Rx <-> GPIO01, COM0 Tx <-> GPIO43, COM0 CTS <-> GPIO16, COM0 RTS <-> GPIO15
+      COM1 Rx <-> GPIO18, COM1 Tx <-> GPIO17, COM1 CTS <-> GPIO20, COM1 RTS <-> GPIO19
+      COM2 Rx <-> GPIO38, COM2 Tx <-> GPIO37, COM2 CTS <-> GPIO36, COM2 RTS <-> GPIO35
     (from repository README)  :contentReference[oaicite:1]{index=1}
 
   - If you want to keep USB Serial for logs, consider:
@@ -29,15 +29,17 @@ struct UartBridge {
   int uart_num;
   int rx_pin;
   int tx_pin;
+  int cts_pin;
+  int rts_pin;
   uint32_t baud;
   bool invert;
 };
 
 // Default pinning from repo README (COM0/1/2)
 static UartBridge UARTS[3] = {
-  { &Serial,  0, UART0_RX_PIN, UART0_TX_PIN, UART0_BAUD, UART0_INVERT },
-  { &Serial1, 1, UART1_RX_PIN, UART1_TX_PIN, UART1_BAUD, UART1_INVERT },
-  { &Serial2, 2, UART2_RX_PIN, UART2_TX_PIN, UART2_BAUD, UART2_INVERT },
+  { &Serial,  0, UART0_RX_PIN, UART0_TX_PIN, UART0_CTS_PIN, UART0_RTS_PIN, UART0_BAUD, UART0_INVERT },
+  { &Serial1, 1, UART1_RX_PIN, UART1_TX_PIN, UART1_CTS_PIN, UART1_RTS_PIN, UART1_BAUD, UART1_INVERT },
+  { &Serial2, 2, UART2_RX_PIN, UART2_TX_PIN, UART2_CTS_PIN, UART2_RTS_PIN, UART2_BAUD, UART2_INVERT },
 };
 
 // -------- TCP clients --------
@@ -93,7 +95,7 @@ static inline void pumpTcpToSerial(int i) {
 void setupUart(int i) {
   // Arduino-ESP32 allows inversion via begin() 6th arg in newer cores; to be safe, set later if needed.
   // begin(baud, config, rxPin, txPin, invert)
-  UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].invert);
+  UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].cts_pin, UARTS[i].rts_pin, UARTS[i].invert);
   UARTS[i].ser->setTimeout(0);
 }
 

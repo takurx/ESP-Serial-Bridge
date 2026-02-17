@@ -1,5 +1,5 @@
 /*********************************************************************************
- * ESP-Serial-Bridge
+ * pio-ESP32S3-Serial-WiFi-Bridge
  *
  * Simple WiFi Serial Bridge for Espressif microcontrollers
  *
@@ -123,9 +123,9 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
         delay(500);
 
 #ifdef ESP32
-        COM[0]->begin(UART_BAUD0, SERIAL_PARAM0, SERIAL0_RXPIN, SERIAL0_TXPIN);
-        COM[1]->begin(UART_BAUD1, SERIAL_PARAM1, SERIAL1_RXPIN, SERIAL1_TXPIN);
-        COM[2]->begin(UART_BAUD2, SERIAL_PARAM2, SERIAL2_RXPIN, SERIAL2_TXPIN);
+        COM[0]->begin(UART_BAUD0, SERIAL_PARAM0, SERIAL0_RXPIN, SERIAL0_TXPIN, SERIAL0_CTSPIN, SERIAL0_RTSPIN);
+        COM[1]->begin(UART_BAUD1, SERIAL_PARAM1, SERIAL1_RXPIN, SERIAL1_TXPIN, SERIAL1_CTSPIN, SERIAL1_RTSPIN);
+        COM[2]->begin(UART_BAUD2, SERIAL_PARAM2, SERIAL2_RXPIN, SERIAL2_TXPIN, SERIAL2_CTSPIN, SERIAL2_RTSPIN);
 #elif defined(ESP8266)
     COM[0]->begin(UART_BAUD0);
     COM[1]->begin(UART_BAUD1);

@@ -17,18 +17,24 @@ static const uint16_t BRIDGE_PORTS[3] = {
 };
 
 // UART pins/baud (README pinningに合わせた初期値) :contentReference[oaicite:2]{index=2}
-static const int UART0_RX_PIN = 21;
-static const int UART0_TX_PIN = 1;
+static const int UART0_TX_PIN = 43;
+static const int UART0_RX_PIN = 1;
+static const int UART0_CTS_PIN = 16;
+static const int UART0_RTS_PIN = 15;
 static const uint32_t UART0_BAUD = 115200;
 static const bool UART0_INVERT = false;
 
-static const int UART1_RX_PIN = 26;
-static const int UART1_TX_PIN = 25;
+static const int UART1_TX_PIN = 17;
+static const int UART1_RX_PIN = 18;
+static const int UART1_CTS_PIN = 20;
+static const int UART1_RTS_PIN = 19;
 static const uint32_t UART1_BAUD = 115200;
 static const bool UART1_INVERT = false;
 
-static const int UART2_RX_PIN = 15;
-static const int UART2_TX_PIN = 4;
+static const int UART2_TX_PIN = 37;
+static const int UART2_RX_PIN = 38;
+static const int UART2_CTS_PIN = 36;
+static const int UART2_RTS_PIN = 35;
 static const uint32_t UART2_BAUD = 115200;
 static const bool UART2_INVERT = false;
 
