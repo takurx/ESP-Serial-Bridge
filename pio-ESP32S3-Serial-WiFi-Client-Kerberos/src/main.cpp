@@ -97,6 +97,9 @@ void setupUart(int i) {
   // begin(baud, config, rxPin, txPin, invert)
   //UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].cts_pin, UARTS[i].rts_pin, UARTS[i].invert);
   UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].invert);
+  // UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1);
+  // UARTS[i].ser->begin(UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].cts_pin, UARTS[i].rts_pin);
+  // UARTS[i].ser->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
   UARTS[i].ser->setTimeout(0);
 }
 
