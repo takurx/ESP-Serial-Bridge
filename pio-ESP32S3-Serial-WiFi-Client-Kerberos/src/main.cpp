@@ -95,7 +95,8 @@ static inline void pumpTcpToSerial(int i) {
 void setupUart(int i) {
   // Arduino-ESP32 allows inversion via begin() 6th arg in newer cores; to be safe, set later if needed.
   // begin(baud, config, rxPin, txPin, invert)
-  UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].cts_pin, UARTS[i].rts_pin, UARTS[i].invert);
+  //UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].cts_pin, UARTS[i].rts_pin, UARTS[i].invert);
+  UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].invert);
   UARTS[i].ser->setTimeout(0);
 }
 
