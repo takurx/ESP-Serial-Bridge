@@ -96,10 +96,21 @@ void setupUart(int i) {
   // Arduino-ESP32 allows inversion via begin() 6th arg in newer cores; to be safe, set later if needed.
   // begin(baud, config, rxPin, txPin, invert)
   //UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].cts_pin, UARTS[i].rts_pin, UARTS[i].invert);
-  UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].invert);
+  // UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].invert);
   // UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1);
   // UARTS[i].ser->begin(UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].cts_pin, UARTS[i].rts_pin);
   // UARTS[i].ser->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
+  // UARTS[i].ser->setTimeout(0);
+
+  // UARTS[1], CTS 20 -> USB D-, RTS 19 -> USB D+ だと競合する気がするので、他のピンに割り当てたい
+  if (i == 0 || i == 2) {
+    UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1);
+    UARTS[i].ser->setPins(UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].cts_pin, UARTS[i].rts_pin);
+    UARTS[i].ser->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
+  }
+  else{
+    UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].invert);
+  }
   UARTS[i].ser->setTimeout(0);
 }
 
