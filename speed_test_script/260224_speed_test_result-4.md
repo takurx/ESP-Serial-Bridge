@@ -4,6 +4,20 @@
 - ESP32-S3(host) - ESP32-S3(client)
 - pio-ESP32S3-Serial-WiFi-Bridge - pio-ESP32S3-Serial-WiFi-Client-Kerberos
 
+## summary
+- flow controlありの方が気持ち速そう
+- flow controlあり
+  - host -> client, Average 82000 bps
+  - host <- client, Average 20000 bps
+- flow controlなし
+  - host -> client, average 50000 bps
+  - host <- client, Average 20000 bps
+
+- ESP32S3の方がhost <- clientの速度が速くて良さそう、また速度が逆の結果ではある
+- vs ESP32, 251218
+  - Host -> Client: around 13000 bps, たまに7000 pbs
+  - Client -> Host: around 100000 bps, 安定
+
 ## test1, uart2-com18(host) -> uart2-com29(client), flow control: enabled
 - Average 82000 bps, max 108000 bps, min 3500 bps
 
