@@ -1,6 +1,6 @@
 import serial, time
 
-ser = serial.Serial("COM18", 115200)
+ser = serial.Serial("COM29", 115200)
 # ser = serial.Serial("COM25", 115200)
 # ser = serial.Serial("COM26", 115200)
 # ser = serial.Serial("COM3", 115200)

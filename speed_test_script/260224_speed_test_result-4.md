@@ -106,11 +106,72 @@ PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\t
 ```
 
 ## test3, uart2-com18(host) -> uart2-com29(client), flow control: disabled
+- average 50000 bps, max 115000 bps, min 2000 bps
 
 ```
+PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\test1_receive_random.py
+2177.55 bps
+115064.37 bps
+115139.91 bps
+104006.52 bps
+37358.19 bps
+14603.29 bps
+24947.27 bps
+20611.27 bps
+14594.36 bps
+12743.75 bps
+20594.07 bps
+20288.62 bps
+14616.75 bps
+20757.68 bps
+12822.62 bps
+20606.84 bps
+28547.43 bps
+12657.10 bps
+14689.66 bps
+20579.03 bps
+12744.59 bps
+14613.41 bps
+20577.66 bps
+12628.76 bps
+14762.19 bps
+12209.61 bps
 ```
 
 ## test4, uart2-com18(host) <- uart2-com29(client), flow control: disabled
+- Average 20000 bps, max 100000 bps, min 3000 bps
 
 ```
+PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\test1_receive_random.py
+3307.27 bps
+105561.38 bps
+9791.88 bps
+13586.41 bps
+13768.07 bps
+20189.73 bps
+33626.77 bps
+16628.27 bps
+19842.49 bps
+102550.38 bps
+7385.27 bps
+13920.94 bps
+13824.53 bps
+39914.20 bps
+13980.38 bps
+13536.02 bps
+19684.80 bps
+28334.70 bps
+13812.42 bps
+98962.45 bps
+90582.25 bps
+80638.94 bps
+14375.85 bps
+32974.44 bps
+35345.13 bps
+13802.42 bps
+52150.37 bps
+16809.83 bps
+28217.62 bps
+13661.30 bps
+25906.35 bps
 ```
