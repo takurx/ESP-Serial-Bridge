@@ -137,8 +137,8 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
 
         // COM[1], CTS 20 -> USB D-, RTS 19 -> USB D+ だと競合する気がするので、他のピンに割り当てたい
         // COM[1]->begin(UART_BAUD1, SERIAL_PARAM1);
-        // COM[1]->setPins(SERIAL1_RXPIN, SERIAL1_TXPIN, SERIAL1_CTSPIN, SERIAL1_RTSPIN);
-        // COM[1]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
+        COM[1]->setPins(SERIAL1_RXPIN, SERIAL1_TXPIN, SERIAL1_CTSPIN, SERIAL1_RTSPIN);
+        COM[1]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
         
         //COM[2]->begin(UART_BAUD2, SERIAL_PARAM2);
         COM[2]->setPins(SERIAL2_RXPIN, SERIAL2_TXPIN, SERIAL2_CTSPIN, SERIAL2_RTSPIN);
