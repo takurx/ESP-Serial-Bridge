@@ -56,8 +56,8 @@
 #define SERIAL_PARAM1 SERIAL_8N1    // Data/Parity/Stop UART1 (use SWSERIAL_* for ESP8266)
 #define SERIAL1_TXPIN 17            // transmit Pin UART1
 #define SERIAL1_RXPIN 18            // receive Pin UART1
-#define SERIAL1_CTSPIN 20           // CTS Pin UART1
-#define SERIAL1_RTSPIN 19           // RTS Pin UART1
+#define SERIAL1_CTSPIN 10           // CTS Pin UART1
+#define SERIAL1_RTSPIN 9           // RTS Pin UART1
 #define SERIAL1_TCP_PORT 8881       // TCP Port UART1
 #define SERIAL1_UDP_PORT 14551      // UDP Port UART1
 /*************************  COM Port 2 *******************************/

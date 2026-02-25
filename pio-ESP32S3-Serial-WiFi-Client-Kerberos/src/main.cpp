@@ -103,7 +103,7 @@ void setupUart(int i) {
   // UARTS[i].ser->setTimeout(0);
 
   // UARTS[1], CTS 20 -> USB D-, RTS 19 -> USB D+ だと競合する気がするので、他のピンに割り当てたい
-  if (i == 0 || i == 2) {
+  if (i == 0 || i == 2 || i == 1) {
     UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].invert);
     // UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1);
     // UARTS[i].ser->setPins(UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].cts_pin, UARTS[i].rts_pin);
