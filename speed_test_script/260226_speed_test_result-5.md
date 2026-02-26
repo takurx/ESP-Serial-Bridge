@@ -1,8 +1,10 @@
 # 260226_speed_test_result-5.md
+- flow controlあり
+- host -> client x3, around 13000 bps
+- host <- client x3, around 10000 bps
 
 ## host -> client x3
-- average
-
+- average 13384 bps
 - com3 -> com24
 ```
 PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\test1_receive_random_com24.py
@@ -39,7 +41,9 @@ PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\t
 6784.34 bps
 14204.86 bps
 ```
+
 - com6 -> com26
+- average 12932 bps
 ```
 PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\test1_receive_random_com26.py
 6008.63 bps
@@ -75,7 +79,9 @@ PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\t
 6285.60 bps
 14982.36 bps
 ```
+
 - com11 -> com25
+- average 13259 bps
 ```
 PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\test1_receive_random_com25.py
 8879.58 bps
@@ -112,6 +118,7 @@ PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\t
 
 ## host <- client x3
 - com3 <- com24
+- average 9593 bps
 ```
 PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\test1_receive_random_com3.py  
 2467.44 bps
@@ -164,7 +171,9 @@ PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\t
 7980.66 bps
 12588.50 bps
 ```
+
 - com6 <- com26
+- average 9741 bps
 ```
 PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\test1_receive_random_com6.py 
 2916.28 bps
@@ -215,7 +224,9 @@ PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\t
 12405.84 bps
 6947.99 bps
 ```
+
 - com11 <- com25
+- average 9727 bps
 ```
 PS C:\250602_Works\250602_GitLab\ESP-Serial-Bridge\speed_test_script> python .\test1_receive_random_com11.py
 3858.88 bps
