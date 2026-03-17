@@ -144,7 +144,7 @@ void loop() {
       WiFi.disconnect(false);
       WiFi.begin(WIFI_SSID, WIFI_PASS);
     }
-    delay(10);
+    //delay(10);
     return;
   }
 
@@ -165,5 +165,5 @@ void loop() {
   }
 
   // small yield to WiFi stack
-  delay(1);
+  //delay(1);
 }
