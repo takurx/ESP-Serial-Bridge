@@ -97,7 +97,8 @@ void setupUart(int i) {
   // UARTS[1], CTS 20 -> USB D-, RTS 19 -> USB D+ だと競合する気がするので、他のピンに割り当てたい -> UARTS[1], CTS 10, RTS 09 にした
   UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].invert);
   UARTS[i].ser->setPins(UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].cts_pin, UARTS[i].rts_pin);
-  UARTS[i].ser->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
+  // UARTS[i].ser->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
+  UARTS[i].ser->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE); // TODO: flow control handling in software if needed
   UARTS[i].ser->setTimeout(0);
 }
 
