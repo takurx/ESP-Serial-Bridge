@@ -15,13 +15,13 @@
 #include <WiFi.h>
 #endif
 
-#define OTA_HANDLER          // uncomment to enable OTA programming
+//#define OTA_HANDLER          // uncomment to enable OTA programming
 
 #define SSID     "ssid_esp_uart_bridge3x3"      // SSID to join (or broadcast)
 #define PASSWD   "password_esp_uart_bridgeAAAA"  // wiFi password
 #define HOSTNAME "ESP32-S3"     // hostname for STA mode mDNS
 
-#define BUFFERSIZE 4096 //1024
+#define BUFFERSIZE 1024 //4096
 
 #ifdef ESP32
 #define VERSION "2.0-ESP32-S3"

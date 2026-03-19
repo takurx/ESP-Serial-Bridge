@@ -44,8 +44,8 @@ static const int CLIENT_KEEPALIVE_SEC = 15;
 static const uint32_t RECONNECT_INTERVAL_MS = 500;
 
 // Chunk sizes
-static const size_t TX_CHUNK = 4096; //1460; //4096; //2048; //256;
-static const size_t RX_CHUNK = 4096; //2048; //256;
+static const size_t TX_CHUNK = 1024; //4096; //1460; //4096; //2048; //256;
+static const size_t RX_CHUNK = 1024; //4096; //2048; //256;
 
 // Logging
 // UART0を外部機器に使うならログはOFF推奨（USB-Serialと競合するため）
