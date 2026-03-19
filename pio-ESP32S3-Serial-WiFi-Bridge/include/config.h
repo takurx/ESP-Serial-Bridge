@@ -21,7 +21,7 @@
 #define PASSWD   "password_esp_uart_bridgeAAAA"  // wiFi password
 #define HOSTNAME "ESP32-S3"     // hostname for STA mode mDNS
 
-#define BUFFERSIZE 1024
+#define BUFFERSIZE 4096 //1024
 
 #ifdef ESP32
 #define VERSION "2.0-ESP32-S3"

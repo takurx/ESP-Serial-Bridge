@@ -166,5 +166,5 @@ void loop() {
   }
 
   // small yield to WiFi stack
-  //delay(1);
+  delay(1);
 }
