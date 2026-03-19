@@ -9,7 +9,7 @@
   - UART0 is usually used for USB programming/logging; using it for external RX/TX may affect uploads.
     The pin assignment below matches the repo README wiring suggestion:
       COM0 Rx <-> GPIO01, COM0 Tx <-> GPIO43, COM0 CTS <-> GPIO16, COM0 RTS <-> GPIO15
-      COM1 Rx <-> GPIO18, COM1 Tx <-> GPIO17, COM1 CTS <-> GPIO20, COM1 RTS <-> GPIO19
+      COM1 Rx <-> GPIO18, COM1 Tx <-> GPIO17, COM1 CTS <-> GPIO10, COM1 RTS <-> GPIO09
       COM2 Rx <-> GPIO38, COM2 Tx <-> GPIO37, COM2 CTS <-> GPIO36, COM2 RTS <-> GPIO35
     (from repository README)  :contentReference[oaicite:1]{index=1}
 
@@ -94,9 +94,11 @@ static inline void pumpTcpToSerial(int i) {
 
 void setupUart(int i) {
   // Arduino-ESP32 allows inversion via begin() 6th arg in newer cores; to be safe, set later if needed.
-  // begin(baud, config, rxPin, txPin, invert)
-  //UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].cts_pin, UARTS[i].rts_pin, UARTS[i].invert);
+  // UARTS[1], CTS 20 -> USB D-, RTS 19 -> USB D+ だと競合する気がするので、他のピンに割り当てたい -> UARTS[1], CTS 10, RTS 09 にした
   UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].invert);
+  // UARTS[i].ser->setPins(UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].cts_pin, UARTS[i].rts_pin);
+  // UARTS[i].ser->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
+  UARTS[i].ser->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE); // TODO: flow control handling in software if needed
   UARTS[i].ser->setTimeout(0);
 }
 
@@ -143,7 +145,7 @@ void loop() {
       WiFi.disconnect(false);
       WiFi.begin(WIFI_SSID, WIFI_PASS);
     }
-    delay(10);
+    //delay(10);
     return;
   }
 

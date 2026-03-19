@@ -26,8 +26,8 @@ static const bool UART0_INVERT = false;
 
 static const int UART1_TX_PIN = 17;
 static const int UART1_RX_PIN = 18;
-static const int UART1_CTS_PIN = 20;
-static const int UART1_RTS_PIN = 19;
+static const int UART1_CTS_PIN = 10;
+static const int UART1_RTS_PIN = 9;
 static const uint32_t UART1_BAUD = 115200;
 static const bool UART1_INVERT = false;
 
@@ -44,8 +44,8 @@ static const int CLIENT_KEEPALIVE_SEC = 15;
 static const uint32_t RECONNECT_INTERVAL_MS = 500;
 
 // Chunk sizes
-static const size_t TX_CHUNK = 256;
-static const size_t RX_CHUNK = 256;
+static const size_t TX_CHUNK = 1024; //4096; //1460; //4096; //2048; //256;
+static const size_t RX_CHUNK = 1024; //4096; //2048; //256;
 
 // Logging
 // UART0を外部機器に使うならログはOFF推奨（USB-Serialと競合するため）

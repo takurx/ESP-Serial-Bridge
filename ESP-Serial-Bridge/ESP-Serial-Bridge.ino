@@ -1,5 +1,5 @@
 /*********************************************************************************
- * pio-ESP32S3-Serial-WiFi-Bridge
+ * ESP-Serial-Bridge
  *
  * Simple WiFi Serial Bridge for Espressif microcontrollers
  *
@@ -21,8 +21,6 @@
  *********************************************************************************/
 
 #include <Arduino.h>
-
-#define ESP32 1
 
 #ifdef ESP32
 #include <ESPmDNS.h>
@@ -124,26 +122,14 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
 
 #ifdef ESP32
         COM[0]->begin(UART_BAUD0, SERIAL_PARAM0, SERIAL0_RXPIN, SERIAL0_TXPIN);
-        // COM[0]->setPins(SERIAL0_RXPIN, SERIAL0_TXPIN, SERIAL0_CTSPIN, SERIAL0_RTSPIN);
-        // COM[0]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
-        COM[0]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE);
-
-        // COM[1], CTS 20 -> USB D-, RTS 19 -> USB D+ だと競合する気がするので、他のピンに割り当てたい
         COM[1]->begin(UART_BAUD1, SERIAL_PARAM1, SERIAL1_RXPIN, SERIAL1_TXPIN);
-        // COM[1]->setPins(SERIAL1_RXPIN, SERIAL1_TXPIN, SERIAL1_CTSPIN, SERIAL1_RTSPIN);
-        // COM[1]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
-        COM[1]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE);
-        
         COM[2]->begin(UART_BAUD2, SERIAL_PARAM2, SERIAL2_RXPIN, SERIAL2_TXPIN);
-        // COM[2]->setPins(SERIAL2_RXPIN, SERIAL2_TXPIN, SERIAL2_CTSPIN, SERIAL2_RTSPIN);
-        // COM[2]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
-        COM[2]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE);
 #elif defined(ESP8266)
     COM[0]->begin(UART_BAUD0);
     COM[1]->begin(UART_BAUD1);
     debug.begin(UART_BAUD0);
 #endif
-        Serial.println("\n\nSerial Bridge Starting...");
+
         debug.print("\n\nWiFi serial bridge ");
         debug.println(VERSION);
 

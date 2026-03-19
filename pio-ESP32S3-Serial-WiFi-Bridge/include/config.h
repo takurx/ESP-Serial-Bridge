@@ -15,13 +15,13 @@
 #include <WiFi.h>
 #endif
 
-#define OTA_HANDLER          // uncomment to enable OTA programming
+//#define OTA_HANDLER          // uncomment to enable OTA programming
 
 #define SSID     "ssid_esp_uart_bridge3x3"      // SSID to join (or broadcast)
 #define PASSWD   "password_esp_uart_bridgeAAAA"  // wiFi password
 #define HOSTNAME "ESP32-S3"     // hostname for STA mode mDNS
 
-#define BUFFERSIZE 1024
+#define BUFFERSIZE 1024 //4096
 
 #ifdef ESP32
 #define VERSION "2.0-ESP32-S3"
@@ -56,8 +56,8 @@
 #define SERIAL_PARAM1 SERIAL_8N1    // Data/Parity/Stop UART1 (use SWSERIAL_* for ESP8266)
 #define SERIAL1_TXPIN 17            // transmit Pin UART1
 #define SERIAL1_RXPIN 18            // receive Pin UART1
-#define SERIAL1_CTSPIN 20           // CTS Pin UART1
-#define SERIAL1_RTSPIN 19           // RTS Pin UART1
+#define SERIAL1_CTSPIN 10           // CTS Pin UART1
+#define SERIAL1_RTSPIN 9           // RTS Pin UART1
 #define SERIAL1_TCP_PORT 8881       // TCP Port UART1
 #define SERIAL1_UDP_PORT 14551      // UDP Port UART1
 /*************************  COM Port 2 *******************************/
