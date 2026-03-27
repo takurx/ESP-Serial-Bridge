@@ -94,6 +94,10 @@ uint16_t i1[NUM_COM] = {0, 0};
 uint8_t BTbuf[BUFFERSIZE];
 uint16_t iBT = 0;
 
+#ifdef SERIAL_FLUSH_INTERVAL
+unsigned long lastSerialFlush[NUM_COM] = {};
+#endif
+
 #ifdef MODE_STA
 #if defined(ESP32)
 void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
@@ -123,21 +127,41 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
         delay(500);
 
 #ifdef ESP32
+        // Flow control disable
         COM[0]->begin(UART_BAUD0, SERIAL_PARAM0, SERIAL0_RXPIN, SERIAL0_TXPIN);
-        // COM[0]->setPins(SERIAL0_RXPIN, SERIAL0_TXPIN, SERIAL0_CTSPIN, SERIAL0_RTSPIN);
-        // COM[0]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
         COM[0]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE);
+        pinMode(SERIAL0_CTSPIN, OUTPUT);
+        pinMode(SERIAL0_RTSPIN, OUTPUT);
+        digitalWrite(SERIAL0_CTSPIN, LOW);
+        digitalWrite(SERIAL0_RTSPIN, LOW);
 
-        // COM[1], CTS 20 -> USB D-, RTS 19 -> USB D+ だと競合する気がするので、他のピンに割り当てたい
         COM[1]->begin(UART_BAUD1, SERIAL_PARAM1, SERIAL1_RXPIN, SERIAL1_TXPIN);
-        // COM[1]->setPins(SERIAL1_RXPIN, SERIAL1_TXPIN, SERIAL1_CTSPIN, SERIAL1_RTSPIN);
-        // COM[1]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
         COM[1]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE);
+        pinMode(SERIAL1_CTSPIN, OUTPUT);
+        pinMode(SERIAL1_RTSPIN, OUTPUT);
+        digitalWrite(SERIAL1_CTSPIN, LOW);
+        digitalWrite(SERIAL1_RTSPIN, LOW);
         
         COM[2]->begin(UART_BAUD2, SERIAL_PARAM2, SERIAL2_RXPIN, SERIAL2_TXPIN);
-        // COM[2]->setPins(SERIAL2_RXPIN, SERIAL2_TXPIN, SERIAL2_CTSPIN, SERIAL2_RTSPIN);
-        // COM[2]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
         COM[2]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE);
+        pinMode(SERIAL2_CTSPIN, OUTPUT);
+        pinMode(SERIAL2_RTSPIN, OUTPUT);
+        digitalWrite(SERIAL2_CTSPIN, LOW);
+        digitalWrite(SERIAL2_RTSPIN, LOW);
+
+        /* //Flow control enable
+        COM[0]->begin(UART_BAUD0, SERIAL_PARAM0, SERIAL0_RXPIN, SERIAL0_TXPIN);
+        COM[0]->setPins(SERIAL0_RXPIN, SERIAL0_TXPIN, SERIAL0_CTSPIN, SERIAL0_RTSPIN);
+        COM[0]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
+        
+        COM[1]->begin(UART_BAUD1, SERIAL_PARAM1, SERIAL1_RXPIN, SERIAL1_TXPIN);
+        COM[1]->setPins(SERIAL1_RXPIN, SERIAL1_TXPIN, SERIAL1_CTSPIN, SERIAL1_RTSPIN);
+        COM[1]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
+        
+        COM[2]->begin(UART_BAUD2, SERIAL_PARAM2, SERIAL2_RXPIN, SERIAL2_TXPIN);
+        COM[2]->setPins(SERIAL2_RXPIN, SERIAL2_TXPIN, SERIAL2_CTSPIN, SERIAL2_RTSPIN);
+        COM[2]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
+        */
 #elif defined(ESP8266)
     COM[0]->begin(UART_BAUD0);
     COM[1]->begin(UART_BAUD1);
@@ -293,6 +317,18 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
                 // no free/disconnected spot so reject
                 WiFiClient TmpserverClient = server[num]->available();
                 TmpserverClient.stop();
+            }
+        }
+#endif
+
+#ifdef SERIAL_FLUSH_INTERVAL
+        {
+            unsigned long now = millis();
+            for (int num = 0; num < NUM_COM; num++) {
+                if (now - lastSerialFlush[num] >= SERIAL_FLUSH_INTERVAL) {
+                    while (COM[num]->available()) COM[num]->read();
+                    lastSerialFlush[num] = now;
+                }
             }
         }
 #endif
