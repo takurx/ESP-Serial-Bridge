@@ -83,6 +83,8 @@ WiFiClient TCPClient[NUM_COM][MAX_NMEA_CLIENTS];
 
 uint8_t buf1[NUM_COM][SOFTWAREBUFFERSIZE];
 uint8_t buf2[NUM_COM][SOFTWAREBUFFERSIZE];
+uint8_t txPending[NUM_COM][SOFTWAREBUFFERSIZE];
+size_t txPendingLen[NUM_COM] = {0};
 
 #ifdef ESP32
 uint16_t i1[NUM_COM] = {0, 0, 0};
@@ -125,6 +127,7 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
 #ifdef ESP32
         // Flow control disable
         COM[0]->setRxBufferSize(HARDWAREBUFFERSIZE);
+    COM[0]->setTxBufferSize(HARDWAREBUFFERSIZE);
         COM[0]->begin(UART_BAUD0, SERIAL_PARAM0, SERIAL0_RXPIN, SERIAL0_TXPIN);
         COM[0]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE);
         pinMode(SERIAL0_CTSPIN, OUTPUT);
@@ -133,6 +136,7 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
         digitalWrite(SERIAL0_RTSPIN, LOW);
 
         COM[1]->setRxBufferSize(HARDWAREBUFFERSIZE);
+        COM[1]->setTxBufferSize(HARDWAREBUFFERSIZE);
         COM[1]->begin(UART_BAUD1, SERIAL_PARAM1, SERIAL1_RXPIN, SERIAL1_TXPIN);
         COM[1]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE);
         pinMode(SERIAL1_CTSPIN, OUTPUT);
@@ -141,6 +145,7 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
         digitalWrite(SERIAL1_RTSPIN, LOW);
         
         COM[2]->setRxBufferSize(HARDWAREBUFFERSIZE);
+        COM[2]->setTxBufferSize(HARDWAREBUFFERSIZE);
         COM[2]->begin(UART_BAUD2, SERIAL_PARAM2, SERIAL2_RXPIN, SERIAL2_TXPIN);
         COM[2]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE);
         pinMode(SERIAL2_CTSPIN, OUTPUT);
@@ -324,6 +329,21 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
         for (int num = 0; num < NUM_COM; num++) {
             if (COM[num] != NULL) {
 #ifdef PROTOCOL_TCP
+                if (txPendingLen[num] > 0) {
+                    size_t writable = COM[num]->availableForWrite();
+                    if (writable > 0) {
+                        size_t toSend = min(writable, txPendingLen[num]);
+                        size_t sent = COM[num]->write(txPending[num], toSend);
+                        if (sent > 0) {
+                            txPendingLen[num] -= sent;
+                            if (txPendingLen[num] > 0) {
+                                memmove(txPending[num], txPending[num] + sent,
+                                        txPendingLen[num]);
+                            }
+                        }
+                    }
+                }
+
                 for (byte cln = 0; cln < MAX_NMEA_CLIENTS; cln++) {
                     if (TCPClient[num][cln]) {
                         int avail = TCPClient[num][cln].available();
@@ -331,13 +351,23 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
                             i1[num] = TCPClient[num][cln].readBytes(
                                 buf1[num],
                                 min(avail, SOFTWAREBUFFERSIZE - 1));  // bulk read from TCP client
-                            // Send in small chunks to avoid long UART TX blocking.
-                            const size_t uartChunkSize = 128;
                             size_t offset = 0;
-                            while (offset < i1[num]) {
-                                size_t chunk = min(uartChunkSize, static_cast<size_t>(i1[num] - offset));
-                                COM[num]->write(buf1[num] + offset, chunk);
-                                offset += chunk;
+                            size_t writable = COM[num]->availableForWrite();
+                            if (writable > 0) {
+                                size_t immediate = min(static_cast<size_t>(i1[num]), writable);
+                                size_t sent = COM[num]->write(buf1[num], immediate);
+                                offset = sent;
+                            }
+
+                            if (offset < i1[num]) {
+                                size_t remaining = static_cast<size_t>(i1[num]) - offset;
+                                size_t freePending = SOFTWAREBUFFERSIZE - txPendingLen[num];
+                                size_t queued = min(remaining, freePending);
+                                if (queued > 0) {
+                                    memcpy(txPending[num] + txPendingLen[num],
+                                           buf1[num] + offset, queued);
+                                    txPendingLen[num] += queued;
+                                }
                             }
                             i1[num] = 0;
                         }
