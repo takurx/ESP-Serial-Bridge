@@ -81,8 +81,8 @@ WiFiServer* server[NUM_COM] = {&server_0, &server_1};
 WiFiClient TCPClient[NUM_COM][MAX_NMEA_CLIENTS];
 #endif
 
-uint8_t buf1[NUM_COM][BUFFERSIZE];
-uint8_t buf2[NUM_COM][BUFFERSIZE];
+uint8_t buf1[NUM_COM][SOFTWAREBUFFERSIZE];
+uint8_t buf2[NUM_COM][SOFTWAREBUFFERSIZE];
 
 #ifdef ESP32
 uint16_t i1[NUM_COM] = {0, 0, 0};
@@ -91,7 +91,7 @@ uint16_t i1[NUM_COM] = {0, 0, 0};
 uint16_t i1[NUM_COM] = {0, 0};
 #endif
 
-uint8_t BTbuf[BUFFERSIZE];
+uint8_t BTbuf[SOFTWAREBUFFERSIZE];
 uint16_t iBT = 0;
 
 #ifdef MODE_STA
@@ -124,6 +124,7 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
 
 #ifdef ESP32
         // Flow control disable
+        COM[0]->setRxBufferSize(HARDWAREBUFFERSIZE);
         COM[0]->begin(UART_BAUD0, SERIAL_PARAM0, SERIAL0_RXPIN, SERIAL0_TXPIN);
         COM[0]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE);
         pinMode(SERIAL0_CTSPIN, OUTPUT);
@@ -131,6 +132,7 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
         digitalWrite(SERIAL0_CTSPIN, LOW);
         digitalWrite(SERIAL0_RTSPIN, LOW);
 
+        COM[1]->setRxBufferSize(HARDWAREBUFFERSIZE);
         COM[1]->begin(UART_BAUD1, SERIAL_PARAM1, SERIAL1_RXPIN, SERIAL1_TXPIN);
         COM[1]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE);
         pinMode(SERIAL1_CTSPIN, OUTPUT);
@@ -138,6 +140,7 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
         digitalWrite(SERIAL1_CTSPIN, LOW);
         digitalWrite(SERIAL1_RTSPIN, LOW);
         
+        COM[2]->setRxBufferSize(HARDWAREBUFFERSIZE);
         COM[2]->begin(UART_BAUD2, SERIAL_PARAM2, SERIAL2_RXPIN, SERIAL2_TXPIN);
         COM[2]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE);
         pinMode(SERIAL2_CTSPIN, OUTPUT);
@@ -287,7 +290,7 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
             while (SerialBT.available()) {
                 BTbuf[iBT] = SerialBT.read();
                 iBT++;
-                if (iBT == BUFFERSIZE - 1) break;
+                if (iBT == SOFTWAREBUFFERSIZE - 1) break;
             }
             COM[BLUETOOTH]->write(BTbuf, iBT);
             iBT = 0;
@@ -302,6 +305,7 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
                     // find free/disconnected spot
                     if (!TCPClient[num][i] || !TCPClient[num][i].connected()) {
                         if (TCPClient[num][i]) TCPClient[num][i].stop();
+                        while (COM[num]->available()) COM[num]->read();  // flush serial buffer for new clients
                         TCPClient[num][i] = server[num]->available();
                         debug.print("New client for COM");
                         debug.print(num);
@@ -326,7 +330,7 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
                         if (avail > 0) {
                             i1[num] = TCPClient[num][cln].readBytes(
                                 buf1[num],
-                                min(avail, BUFFERSIZE - 1));  // bulk read from TCP client
+                                min(avail, SOFTWAREBUFFERSIZE - 1));  // bulk read from TCP client
                             COM[num]->write(buf1[num],
                                             i1[num]);  // now send to UART(num):
                             i1[num] = 0;
@@ -336,7 +340,7 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
 #endif
 
                 if (COM[num]->available()) {
-                    int readCount = COM[num]->read(&buf2[num][0], BUFFERSIZE); // Read up to BUFFERSIZE bytes from the serial device.
+                    int readCount = COM[num]->read(&buf2[num][0], SOFTWAREBUFFERSIZE); // Read up to SOFTWAREBUFFERSIZE bytes from the serial device.
                     if (readCount == 0)
                         continue;
 #ifdef PROTOCOL_TCP

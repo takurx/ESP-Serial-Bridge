@@ -21,7 +21,8 @@
 #define PASSWD   "password_esp_uart_bridgeAAAA"  // wiFi password
 #define HOSTNAME "ESP32-S3"     // hostname for STA mode mDNS
 
-#define BUFFERSIZE 1024 //4096
+#define SOFTWAREBUFFERSIZE 1024
+#define HARDWAREBUFFERSIZE 4096
 
 #ifdef ESP32
 #define VERSION "2.0-ESP32-S3"
@@ -33,7 +34,6 @@
 //#define PROTOCOL_UDP         // uncomment to enable UDP broadcast
 //#define BLUETOOTH 0          // uncomment to create a bluetooth serial bridge on the indicated serial port
 //#define BATTERY_SAVER        // uncomment to reduce wifi power
-//#define SERIAL_FLUSH_INTERVAL 5000  // uncomment to flush serial RX buffer every N ms
 
 #define STATIC_IP IPAddress(192, 168,   4, 1)  // static IP for MODE_AP
 #define NETMASK   IPAddress(255, 255, 255, 0)  // netmask for MODE_AP
