@@ -331,8 +331,14 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
                             i1[num] = TCPClient[num][cln].readBytes(
                                 buf1[num],
                                 min(avail, SOFTWAREBUFFERSIZE - 1));  // bulk read from TCP client
-                            COM[num]->write(buf1[num],
-                                            i1[num]);  // now send to UART(num):
+                            // Send in small chunks to avoid long UART TX blocking.
+                            const size_t uartChunkSize = 128;
+                            size_t offset = 0;
+                            while (offset < i1[num]) {
+                                size_t chunk = min(uartChunkSize, static_cast<size_t>(i1[num] - offset));
+                                COM[num]->write(buf1[num] + offset, chunk);
+                                offset += chunk;
+                            }
                             i1[num] = 0;
                         }
                     }

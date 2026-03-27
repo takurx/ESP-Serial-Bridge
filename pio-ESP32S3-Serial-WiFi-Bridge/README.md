@@ -3,7 +3,8 @@
 ## memo randomly
 
 - data flow
-UART HW FIFO (1024B) → HardwareSerial リングバッファ (4096B) → buf2[1024B] → TCP送信
+- UART HW FIFO (1024B) → HardwareSerial リングバッファ (4096B) → buf2[1024B] → TCP送信
+- TCP RXバッファ（lwIP / WiFiClient内部） → buf1[SOFTWAREBUFFERSIZE] → HardwareSerial TXリングバッファ（既定256B） → UART HW FIFO（ESP32-S3は1024B） → UART TXピン
 
 - buffer description
 サイズ	役割
