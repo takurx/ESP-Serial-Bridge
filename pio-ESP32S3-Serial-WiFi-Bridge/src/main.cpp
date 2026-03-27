@@ -94,10 +94,6 @@ uint16_t i1[NUM_COM] = {0, 0};
 uint8_t BTbuf[BUFFERSIZE];
 uint16_t iBT = 0;
 
-#ifdef SERIAL_FLUSH_INTERVAL
-unsigned long lastSerialFlush[NUM_COM] = {};
-#endif
-
 #ifdef MODE_STA
 #if defined(ESP32)
 void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
@@ -317,18 +313,6 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
                 // no free/disconnected spot so reject
                 WiFiClient TmpserverClient = server[num]->available();
                 TmpserverClient.stop();
-            }
-        }
-#endif
-
-#ifdef SERIAL_FLUSH_INTERVAL
-        {
-            unsigned long now = millis();
-            for (int num = 0; num < NUM_COM; num++) {
-                if (now - lastSerialFlush[num] >= SERIAL_FLUSH_INTERVAL) {
-                    while (COM[num]->available()) COM[num]->read();
-                    lastSerialFlush[num] = now;
-                }
             }
         }
 #endif
