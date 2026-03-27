@@ -322,17 +322,15 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
 #ifdef PROTOCOL_TCP
                 for (byte cln = 0; cln < MAX_NMEA_CLIENTS; cln++) {
                     if (TCPClient[num][cln]) {
-                        while (TCPClient[num][cln].available()) {
-                            buf1[num][i1[num]] =
-                                TCPClient[num][cln]
-                                    .read();  // read char from client
-                            i1[num]++;
-                            if (i1[num] == BUFFERSIZE - 1) break;
+                        int avail = TCPClient[num][cln].available();
+                        if (avail > 0) {
+                            i1[num] = TCPClient[num][cln].readBytes(
+                                buf1[num],
+                                min(avail, BUFFERSIZE - 1));  // bulk read from TCP client
+                            COM[num]->write(buf1[num],
+                                            i1[num]);  // now send to UART(num):
+                            i1[num] = 0;
                         }
-
-                        COM[num]->write(buf1[num],
-                                        i1[num]);  // now send to UART(num):
-                        i1[num] = 0;
                     }
                 }
 #endif
