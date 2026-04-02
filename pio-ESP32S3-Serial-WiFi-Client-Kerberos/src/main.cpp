@@ -46,6 +46,10 @@ static UartBridge UARTS[3] = {
 static WiFiClient clients[3];
 static uint32_t lastReconnectMs[3] = {0, 0, 0};
 
+// -------- TX pending queue (TCP->UART) --------
+static uint8_t txPendingBuf[3][TX_PENDING_SIZE];
+static size_t txPendingLen[3] = {0, 0, 0};
+
 static inline bool connectClient(int i) {
   if (clients[i].connected()) return true;
 
@@ -82,20 +86,56 @@ static inline void pumpTcpToSerial(int i) {
   auto& c = clients[i];
   if (!c.connected()) return;
 
+  // Flush any previously queued bytes first
+  if (txPendingLen[i] > 0) {
+    size_t writable = s->availableForWrite();
+    if (writable > 0) {
+      size_t toSend = min(writable, txPendingLen[i]);
+      size_t sent = s->write(txPendingBuf[i], toSend);
+      if (sent > 0) {
+        txPendingLen[i] -= sent;
+        if (txPendingLen[i] > 0) {
+          memmove(txPendingBuf[i], txPendingBuf[i] + sent, txPendingLen[i]);
+        }
+      }
+    }
+  }
+
   int avail = c.available();
   if (avail <= 0) return;
 
   uint8_t buf[RX_CHUNK];
   int n = c.read(buf, (avail > (int)sizeof(buf)) ? sizeof(buf) : avail);
-  if (n > 0) {
-    s->write(buf, n);
+  if (n <= 0) return;
+
+  // Write what fits immediately into the UART TX buffer
+  size_t offset = 0;
+  size_t writable = s->availableForWrite();
+  if (writable > 0) {
+    size_t immediate = min((size_t)n, writable);
+    size_t sent = s->write(buf, immediate);
+    offset = sent;
+  }
+
+  // Queue the remainder into txPendingBuf
+  if (offset < (size_t)n) {
+    size_t remaining = (size_t)n - offset;
+    size_t freePending = TX_PENDING_SIZE - txPendingLen[i];
+    size_t queued = min(remaining, freePending);
+    if (queued > 0) {
+      memcpy(txPendingBuf[i] + txPendingLen[i], buf + offset, queued);
+      txPendingLen[i] += queued;
+    }
   }
 }
 
 void setupUart(int i) {
   // Arduino-ESP32 allows inversion via begin() 6th arg in newer cores; to be safe, set later if needed.
   // UARTS[1], CTS 20 -> USB D-, RTS 19 -> USB D+ だと競合する気がするので、他のピンに割り当てたい -> UARTS[1], CTS 10, RTS 09 にした
-  
+
+  // Expand HW UART RX/TX buffers (must be called before begin())
+  UARTS[i].ser->setRxBufferSize(HARDWARE_BUFFER_SIZE);
+  UARTS[i].ser->setTxBufferSize(HARDWARE_BUFFER_SIZE);
   // Flow control disable
   UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].invert);
   UARTS[i].ser->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE); // TODO: flow control handling in software if needed
