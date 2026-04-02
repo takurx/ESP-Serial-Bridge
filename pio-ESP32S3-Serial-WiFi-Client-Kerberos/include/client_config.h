@@ -38,6 +38,12 @@ static const int UART2_RTS_PIN = 35;
 static const uint32_t UART2_BAUD = 115200;
 static const bool UART2_INVERT = false;
 
+// Hardware UART buffer sizes (must be set before begin())
+static const size_t HARDWARE_BUFFER_SIZE = 4096;
+
+// Software pending buffer size for TCP->UART queuing
+static const size_t TX_PENDING_SIZE = 1024;
+
 // TCP tuning
 static const bool TCP_NODELAY = true;
 static const int CLIENT_KEEPALIVE_SEC = 15;
