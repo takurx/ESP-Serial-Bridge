@@ -136,12 +136,21 @@ void setupUart(int i) {
   // Expand HW UART RX/TX buffers (must be called before begin())
   UARTS[i].ser->setRxBufferSize(HARDWARE_BUFFER_SIZE);
   UARTS[i].ser->setTxBufferSize(HARDWARE_BUFFER_SIZE);
-
+  // Flow control disable
   UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].invert);
-  // UARTS[i].ser->setPins(UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].cts_pin, UARTS[i].rts_pin);
-  // UARTS[i].ser->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
   UARTS[i].ser->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE); // TODO: flow control handling in software if needed
+  pinMode(UARTS[i].cts_pin, OUTPUT); // CTS as input (not used if flow control disabled, but set to known state)
+  pinMode(UARTS[i].rts_pin, OUTPUT); // RTS as output (not used if flow control disabled, but set to known state)
+  digitalWrite(UARTS[i].cts_pin, LOW);
+  digitalWrite(UARTS[i].rts_pin, LOW);
   UARTS[i].ser->setTimeout(0);
+
+  /* // Flow control enable
+  UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].invert);
+  UARTS[i].ser->setPins(UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].cts_pin, UARTS[i].rts_pin);
+  UARTS[i].ser->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
+  UARTS[i].ser->setTimeout(0);
+  */
 }
 
 void setupWifi() {
