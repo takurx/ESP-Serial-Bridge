@@ -95,11 +95,22 @@ static inline void pumpTcpToSerial(int i) {
 void setupUart(int i) {
   // Arduino-ESP32 allows inversion via begin() 6th arg in newer cores; to be safe, set later if needed.
   // UARTS[1], CTS 20 -> USB D-, RTS 19 -> USB D+ だと競合する気がするので、他のピンに割り当てたい -> UARTS[1], CTS 10, RTS 09 にした
+  
+  // Flow control disable
   UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].invert);
-  // UARTS[i].ser->setPins(UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].cts_pin, UARTS[i].rts_pin);
-  // UARTS[i].ser->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
   UARTS[i].ser->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE); // TODO: flow control handling in software if needed
+  pinMode(UARTS[i].cts_pin, OUTPUT); // CTS as input (not used if flow control disabled, but set to known state)
+  pinMode(UARTS[i].rts_pin, OUTPUT); // RTS as output (not used if flow control disabled, but set to known state)
+  digitalWrite(UARTS[i].cts_pin, LOW);
+  digitalWrite(UARTS[i].rts_pin, LOW);
   UARTS[i].ser->setTimeout(0);
+
+  /* // Flow control enable
+  UARTS[i].ser->begin(UARTS[i].baud, SERIAL_8N1, UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].invert);
+  UARTS[i].ser->setPins(UARTS[i].rx_pin, UARTS[i].tx_pin, UARTS[i].cts_pin, UARTS[i].rts_pin);
+  UARTS[i].ser->setHwFlowCtrlMode(UART_HW_FLOWCTRL_CTS_RTS);
+  UARTS[i].ser->setTimeout(0);
+  */
 }
 
 void setupWifi() {
