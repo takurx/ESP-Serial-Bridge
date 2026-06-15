@@ -127,7 +127,7 @@ void WiFiStationDisconnected(WiFiEvent_t event, WiFiEventInfo_t info) {
 #ifdef ESP32
         // Flow control disable
         COM[0]->setRxBufferSize(HARDWAREBUFFERSIZE);
-    COM[0]->setTxBufferSize(HARDWAREBUFFERSIZE);
+        COM[0]->setTxBufferSize(HARDWAREBUFFERSIZE);
         COM[0]->begin(UART_BAUD0, SERIAL_PARAM0, SERIAL0_RXPIN, SERIAL0_TXPIN);
         COM[0]->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE);
         pinMode(SERIAL0_CTSPIN, OUTPUT);
