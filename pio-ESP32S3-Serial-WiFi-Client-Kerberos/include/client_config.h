@@ -1,7 +1,7 @@
 #pragma once
 
 // WiFi
-static const char* WIFI_SSID = "ssid_esp_uart_bridge3x3";
+static const char* WIFI_SSID = "ssid_esp_uart_bridge4x3";
 static const char* WIFI_PASS = "password_esp_uart_bridgeAAAA";
 static const uint32_t WIFI_CONNECT_TIMEOUT_MS = 15000;
 

@@ -17,7 +17,7 @@
 
 //#define OTA_HANDLER          // uncomment to enable OTA programming
 
-#define SSID     "ssid_esp_uart_bridge3x3"      // SSID to join (or broadcast)
+#define SSID     "ssid_esp_uart_bridge4x3"      // SSID to join (or broadcast)
 #define PASSWD   "password_esp_uart_bridgeAAAA"  // wiFi password
 #define HOSTNAME "ESP32-S3"     // hostname for STA mode mDNS
 
