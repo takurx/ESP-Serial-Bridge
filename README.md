@@ -1,4 +1,4 @@
-# ESP32-Serial-Bridge
+# ESP32-Serial-Bridge, ESP32S3-Serial-Bridge, 3 port concurrent
 
 ---
 
